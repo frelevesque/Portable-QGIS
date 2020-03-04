@@ -1,0 +1,32 @@
+1) Create a folder for your portable QGIS, i.e "QGIS_3.10.3_LTR"
+
+2) In this folder add the batch files (qgis-ltr.bat qgis-ltr-grass7.bat) and create a folder "qgis"
+
+3) Place the content of C:/Program Files (x86 or x64)/QGIS 3.10/ in the ".../QGIS_3.10.3_LTR/qgis/" directory
+
+4) Now you should have something like this
+
++-- /QGIS_3.10.3_LTR/
+    +-- qgis-ltr.bat
+    +-- qgis-ltr-grass7.bat
+    +-- qgis/
+        +-- apps/
+            +-- (bunch of files and folders)
+        +-- bin/
+            +-- (bunch of files and folders)
+        +-- etc/
+            +-- (bunch of files and folders)
+        +-- icons/
+            +-- (bunch of files and folders)
+        +-- include/
+            +-- (bunch of files and folders)
+        +-- qgisconfig/ (after first run)
+            +-- (bunch of files and folders)
+        +-- qgisoptions/ (after first run)
+            +-- (folder with ini file)
+        +-- share/
+            +-- (bunch of files and folders)
+        +-- msvcp110.dll
+        +-- ~8 other files
+
+5) Start qgis-ltr.bat by clicking on it. QGIS will start.
