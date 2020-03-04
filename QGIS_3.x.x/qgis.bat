@@ -1,8 +1,7 @@
+@ECHO OFF
 REM This batch file make QGIS 3.x.x portable on windows
 REM Config will be stored in QGIS 3.x.x/profiles/
 REM The batch file calls a Python script that correct the path each time QGIS is started via the batch file
-
-@ECHO OFF
 
 SET BATCH_PATH=%~dp0
 
