@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+__author__ = 'Frédéric Lévesque'
+__version__ = '0.1'
 
 import os, re
 import shutil
