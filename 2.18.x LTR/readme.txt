@@ -28,4 +28,4 @@
         +-- msvcp110.dll
         +-- ~8 other files
 
-5) start qgis.bat by clicking on it. QGIS will start.
+5) Start qgis.bat by clicking on it. QGIS will start.
