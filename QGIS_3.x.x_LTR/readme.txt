@@ -32,4 +32,4 @@
         +-- msvcp110.dll
         +-- ~8 other files
 
-5) Start qgis-ltr.bat by clicking on it. QGIS will start.
+5) Start qgis-ltr.bat or qgis-ltr-grass7.bat by clicking on it. QGIS will start.
