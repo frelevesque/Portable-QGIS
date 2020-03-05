@@ -6,29 +6,29 @@ import os, re
 import shutil
 
 def start_qgis():
-    # Get the main portable QGIS folder
-    base_path = os.path.dirname(os.getcwd())
-
-    # Assign the QGIS files path
+    base_path = os.getcwd().replace('\\portable','').replace('/portable','')
     qgis_path = os.path.join(base_path, "qgis")
 
-    # Assign the path to qgis-bin.env file where path are written
-    env_path = '{0}/qgis/bin/qgis-bin.env'.format(base_path)
-    # Assign the path of the backup of the qgis-bin.env file
-    env_path_bck = env_path + '.bak'
+    """Check if LTR"""
+    env_path = os.path.normpath('{0}/bin/qgis-ltr-bin.env'.format(qgis_path))
+    env_path_bak = env_path + '.bak'
+    bat_path = os.path.normpath('{0}/bin/qgis-ltr.bat'.format(qgis_path))
 
-
+    if not os.path.isfile(env_path):
+        env_path = os.path.normpath('{0}/bin/qgis-bin.env'.format(qgis_path))
+        env_path_bak = env_path + '.bak'
+        bat_path = os.path.normpath('{0}/bin/qgis.bat'.format(qgis_path))
 
     """Fait le back up de l'orginal si non disponible
     """
-    if not os.path.isfile(env_path_bck):
-        shutil.copy2(env_path, env_path_bck)
+    if not os.path.isfile(env_path_bak):
+        shutil.copy2(env_path, env_path_bak)
 
     """Remplace l'orignal par le back up
     utile si le dossier est déplacé
     """    
-    if os.path.isfile(env_path_bck):
-        shutil.copy2(env_path_bck, env_path)    
+    if os.path.isfile(env_path_bak):
+        shutil.copy2(env_path_bak, env_path)    
 
     """Lit le fichier environnement
     """
@@ -57,18 +57,18 @@ def start_qgis():
         line = line.replace(pattern_qgis, qgis_path)
         line = line.replace(pattern_qgis_forward, qgis_path)
         
-        # uniformiser les /
+        # Uniformiser les /
         if '/' in line:
             line = line.replace('\\', '/')
             
         lines[inx] = line
 
-    # enregistre le nouveau fichier '.env' avec les bon chemin
+    # Enregistre le nouveau fichier '.env' avec les bon chemin
     with open(env_path, 'w') as f:
         f.writelines(lines)
 
     # Démarre QGIS
-    os.system(qgis_path + '/bin/qgis.bat --profiles-path ' + base_path)
+    os.system(bat_path + ' --profiles-path ' + base_path)
     
 if __name__ == "__main__":
     start_qgis()
