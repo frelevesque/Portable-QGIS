@@ -12,7 +12,7 @@ def start_qgis():
     """Check if LTR"""
     env_path = os.path.normpath('{0}/bin/qgis-ltr-bin-g7.env'.format(qgis_path))
     env_path_bak = env_path + '.bak'
-    bat_path = os.path.normpath('{0}/bin/qgis-ltr-grass7.bat'.format(qgis_path))
+    batch_path = os.path.normpath('{0}/bin/qgis-ltr-grass7.bat'.format(qgis_path))
 
     if not os.path.isfile(env_path):
         env_path = os.path.normpath('{0}/bin/qgis-bin-g7.env'.format(qgis_path))
@@ -68,7 +68,7 @@ def start_qgis():
         f.writelines(lines)
 
     # Démarre QGIS
-    os.system(bat_path + ' --profiles-path ' + base_path)
+    os.system(batch_path + ' --profiles-path ' + base_path)
     
 if __name__ == "__main__":
     start_qgis()
