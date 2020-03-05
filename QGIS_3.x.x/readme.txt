@@ -1,13 +1,19 @@
-1) Create a folder for your portable QGIS, i.e "QGIS_2.18.28"
+1) Create a folder for your portable QGIS, i.e "QGIS_3.10.3";
 
-2) In this folder add the batch file (qgis.bat) and create a folder "qgis"
+2) In this folder add the batch files (qgis.bat qgis-grass7.bat) and create a folder "qgis";
 
-3) Place the content of C:/Program Files (x86 or x64)/QGIS 2.18/ in the ".../QGIS_2.18.28/qgis/" directory
+3) Still in "QGIS_3.10.3" folder create a folder name "portable" and add to phyton file (qgis.pyw qgis-grass7.pyw) to this folder;
 
-4) Now you should have something like this
+4) Place the content of C:/Program Files (x86 or x64)/QGIS 3.10/ in the ".../QGIS_3.10.3/qgis/" directory;
 
-+-- /QGIS_2.18.28/
+5) Now you should have something like this :
+
++-- /QGIS_3.10.3/
     +-- qgis.bat
+    +-- qgis-grass7.bat
+    +-- portable/
+        +-- qgis.pyw
+        +-- qgis-grass7.pyw
     +-- qgis/
         +-- apps/
             +-- (bunch of files and folders)
@@ -28,4 +34,4 @@
         +-- msvcp110.dll
         +-- ~8 other files
 
-5) Start qgis.bat by clicking on it. QGIS will start.
+6) Start qgis.bat or qgis-grass7.bat by clicking on it. QGIS will start.
