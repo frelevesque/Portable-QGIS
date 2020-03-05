@@ -17,7 +17,7 @@ def start_qgis():
     if not os.path.isfile(env_path):
         env_path = os.path.normpath('{0}/bin/qgis-bin-g7.env'.format(qgis_path))
         env_path_bak = env_path + '.bak'
-        bat_path = os.path.normpath('{0}/bin/qgis-grass7.bat'.format(qgis_path))
+        batch_path = os.path.normpath('{0}/bin/qgis-grass7.bat'.format(qgis_path))
 
     """Fait le back up de l'orginal si non disponible
     """
