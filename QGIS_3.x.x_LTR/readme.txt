@@ -9,6 +9,9 @@
 +-- /QGIS_3.10.3_LTR/
     +-- qgis-ltr.bat
     +-- qgis-ltr-grass7.bat
+    +-- portable/
+        +-- qgis-ltr.pyw
+        +-- qgis-ltr-grass7.pyw
     +-- qgis/
         +-- apps/
             +-- (bunch of files and folders)
