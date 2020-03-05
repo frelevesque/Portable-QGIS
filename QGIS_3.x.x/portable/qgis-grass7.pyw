@@ -5,53 +5,70 @@ __version__ = '0.1'
 import os, re
 import shutil
 
-base_path = os.getcwd().replace('\\portable','').replace('/portable','')
-qgis_path = base_path + "\\qgis"
+def start_qgis():
+    base_path = os.getcwd().replace('\\portable','').replace('/portable','')
+    qgis_path = os.path.join(base_path, "qgis")
 
-env_path = '{0}/qgis/bin/qgis-bin-g7.env'.format(base_path)
-env_path_bck = env_path + '.backup'
+    """Check if LTR"""
+    env_path = os.path.normpath('{0}/bin/qgis-ltr-bin-g7.env'.format(qgis_path))
+    env_path_bak = env_path + '.bak'
+    bat_path = os.path.normpath('{0}/bin/qgis-ltr-grass7.bat'.format(qgis_path))
 
-"""Fait le back up de l'orginal si non disponible
-"""
-if not os.path.isfile(env_path_bck):
-    shutil.copy2(env_path, env_path_bck)
+    if not os.path.isfile(env_path):
+        env_path = os.path.normpath('{0}/bin/qgis-bin-g7.env'.format(qgis_path))
+        env_path_bak = env_path + '.bak'
+        bat_path = os.path.normpath('{0}/bin/qgis-grass7.bat'.format(qgis_path))
 
-"""Remplace l'orignal par le back up
-utile si le dossier est déplacé
-"""    
-if os.path.isfile(env_path_bck):
-    shutil.copy2(env_path_bck, env_path)    
+    """Fait le back up de l'orginal si non disponible
+    """
+    if not os.path.isfile(env_path_bak):
+        shutil.copy2(env_path, env_path_bak)
 
-with open(env_path, 'r') as f:
-    lines = f.readlines()
+    """Remplace l'orignal par le back up
+    utile si le dossier est déplacé
+    """    
+    if os.path.isfile(env_path_bak):
+        shutil.copy2(env_path_bak, env_path)    
 
-texte = ''.join(lines)
-pattern_qgis = re.search("(?=[A-Z]:\\\)(.*?QGIS.*?\d\.\d*?)(?=\W)", texte)
+    """Lit le fichier environnement
+    """
+    with open(env_path, 'r') as f:
+        lines = f.readlines()
 
-try:
-    pattern_qgis = pattern_qgis.group()
-    pattern_qgis_forward = pattern_qgis.replace('\\', '/')
-except AttributeError:
-    print(texte)
-    exit()
+    texte = ''.join(lines)
 
-print(base_path)
-print(pattern_qgis)
-print(pattern_qgis_forward)
+    """Pattern de recherche dans le ficher '.env' pour trouver la version et
+    le chemin a remplacer
+    """
+    pattern_qgis = re.search("(?=[A-Z]:\\\)(.*?QGIS.*?\d\.\d*?)(?=\W)", texte)
 
-env_nouveau = []
-
-for line in lines:
-    line = line.replace(pattern_qgis, qgis_path)
-    line = line.replace(pattern_qgis_forward, qgis_path)
-    if '/' in line:
-        line = line.replace('\\', '/')
+    try:
+        pattern_qgis = pattern_qgis.group()
+        pattern_qgis_forward = pattern_qgis.replace('\\', '/')
         
-    env_nouveau.append(line)
+    # Si pas de pattern correspondant
+    except AttributeError:
+        print(texte)
+        exit()
 
-print(env_nouveau)
+    # Corrige les chemins ligne par ligne
+    for inx, line in enumerate(lines):
 
-with open(env_path, 'w') as f:
-    f.writelines(env_nouveau)
+        line = line.replace(pattern_qgis, qgis_path)
+        line = line.replace(pattern_qgis_forward, qgis_path)
+        
+        # Uniformiser les /
+        if '/' in line:
+            line = line.replace('\\', '/')
+            
+        lines[inx] = line
 
-os.system(qgis_path + '/bin/qgis-grass7.bat --profiles-path ' + base_path)
+    # Enregistre le nouveau fichier '.env' avec les bon chemin
+    with open(env_path, 'w') as f:
+        f.writelines(lines)
+
+    # Démarre QGIS
+    os.system(bat_path + ' --profiles-path ' + base_path)
+    
+if __name__ == "__main__":
+    start_qgis()
