@@ -7,7 +7,7 @@ SET BATCH_PATH=%~dp0
 
 SET QGIS_ROOT=%BATCH_PATH%qgis
 
-"%QGIS_ROOT%\apps\Python37\pythonw.exe" %BATCH_PATH%portable\qgis-grass7.pyw
+"%QGIS_ROOT%\apps\Python37\pythonw.exe" %BATCH_PATH%portable\qgis.pyw grass7
 
 timeout /t 3
 
